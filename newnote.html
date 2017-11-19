@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Noteit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Palanquin:100,200,300,400" rel="stylesheet">
+    <!--
+    Second font: Noto sans
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+  -->
+</head>
+<body onload="updateTheme()">
+  <header>
+    <div class="gradient-light top-bar">
+      <h1>Noteit</h1>
+    </header>
+    <main>
+<form action="index.html" onsubmit="submitNewNote()">
+  <h3 id="detitel"> Create a new note </h3>
+  <p>Title:</p>
+  <input name="title" id="title" type="text"> </input>
+
+<p>Description:</p>
+<input name="description" id="description" type="text" placeholder="Description"> </input>
+
+<p>Importance</p>
+ <input name="importance" id="importance" type="range" name="points" min="0" max="5">
+
+<!--new method for importance -->
+ <div class="importance">
+  <input type="radio" id="star5" name="rate" value="5" />
+  <label for="star5" title="text"> </label>
+  <input type="radio" id="star4" name="rate" value="4" />
+  <label for="star4" title="text"> </label>
+  <input type="radio" id="star3" name="rate" value="3" />
+  <label for="star3" title="text"> </label>
+  <input type="radio" id="star2" name="rate" value="2" />
+  <label for="star2" title="text"> </label>
+  <input type="radio" id="star1" name="rate" value="1" />
+  <label for="star1" title="text"> </label>
+</div>
+
+ <p>Erledigt bis:</p>
+  <input name="enddate" id="enndate" type="date">
+  
+<div class="flex">
+<button onclick="cancelNewNote()" id="btnCancel" type="button" class="btn">Cancel</button>
+<button href="index.html" type="submit" value="Submit" id="btnSubmit" class="btn gradient-light">Submit</button>
+</div>
+</form>
+</main>
+<!-- end of new content -->
+    <script type="text/javascript" src="app.js"></script>
+</body>
+</html>

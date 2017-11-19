@@ -1,0 +1,349 @@
+/*first styles for a short concept of the notes app*/
+body {
+  margin: 0px;
+  font-family: 'Palanquin', sans-serif;
+  /*font-family: 'Noto Sans', sans-serif;*/
+}
+
+header {
+  width: 100vw;
+}
+
+.top-bar{
+  padding: 1% 5%;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+main {
+  background-color: #ddd;
+  padding: 5%;
+  min-height: 70vh;
+}
+
+form {
+  background-color: #fff;
+  padding: 5%;
+  margin: 5%;
+  box-shadow: 10px 10px 10px #ccc;
+}
+
+form input {
+  width: 50%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.half {
+  width: 50%;
+}
+
+/* NOTES */
+.notes {
+  padding: 2% 0%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.single-note {
+  background-color: white;
+  color: black;
+  box-shadow: 5px 5px 15px #ccc;  
+  padding: 2%;
+  margin: 0% 5% 5% 0%;
+  border-radius: 2px;
+  width: 23%;
+}
+
+.single-note a:before{
+  height: 20px;
+  width: 20px;
+}
+
+select {
+  margin: 25px 20px;
+  padding: 10px;
+}
+
+
+.sort-bar {
+  background-color: white;
+  padding: 10px;
+  margin: 10px;
+}
+
+.btn {
+  padding: 20px;
+  box-shadow: 0px 4px 20px 5px rgba(0,0,0,0.1);
+  border: none;
+  border-radius: 10%;
+}
+
+
+/* theme gradients */
+.gradient-light {
+  color: white;
+  background: #fe9a8b; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+  background: -o-linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+  background: -moz-linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+  background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+}
+
+/*other coloured gradient colour:
+Colorful peach:
+background: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
+Royal garden:
+background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);*/
+
+.gradient-dark {
+  color : #333;
+  background: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
+}
+
+.gradient-coloured {
+  color: #8ddad5;
+}
+
+
+
+/* CSS rules for toggle switcher*/
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+legend {
+    padding: 0;
+    margin: 0;
+}
+.toggle label {
+    color: #4d4d4d;
+    cursor: pointer;
+    display: block;
+    float: left;
+    padding: 2% 3%;
+    background-color: #ccc;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+  background-color: #eee;
+    border-color: #ddd;
+    background-image: -moz-linear-gradient(rgba(0,0,0,.2), rgba(255,255,255,.2));
+    background-image: -webkit-linear-gradient(rgba(0,0,0,.2), rgba(255,255,255,.2));
+    background-image: linear-gradient(rgba(0,0,0,.2), rgba(255,255,255,.2));
+    box-shadow: 1px 1px 1px rgba(0,0,0,.2) inset;
+}
+label:first-child {
+    border-left-width: 1px;
+    border-top-left-radius: .2em;
+    border-bottom-left-radius: .2em;
+}
+label:last-child {
+    border-top-right-radius: .2em;
+    border-bottom-right-radius: .2em;
+}
+
+.toggle label.selected {
+  color: white;
+  background-color: #FF6369;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    border-color: #666;
+    background-image: -moz-linear-gradient(rgba(255,255,255,.2), rgba(0,0,0,.2));
+    background-image: -webkit-linear-gradient(rgba(255,255,255,.2), rgba(0,0,0,.2));
+    background-image: linear-gradient(rgba(255,255,255,.2), rgba(0,0,0,.2));
+    box-shadow: 5px 1px 1px rgba(255,255,255,.2) inset, -1px -1px 1px rgba(0,0,0,.2) inset;
+}
+label.warning.selected {
+    background-color: #FF6369;
+    border-color: darkred;
+}
+input[type="radio"] {
+   position: absolute;
+   top: -9999px;
+   left: -9999px;
+}
+
+/* style for priority rating*/
+.importance {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+
+.importance:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+
+.importance:not(:checked) > label {
+  float: right;
+  width: 0.7em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #eee;
+}
+
+.importance:not(:checked) > label:before { content: '● '; }
+
+.importance > input:checked ~ label { color: #fe9a8b; }
+
+.importance:not(:checked) > label:hover,
+.importance:not(:checked) > label:hover ~ label { color: #f78ca0; }
+
+.importance > input:checked + label:hover,
+.importance > input:checked + label:hover ~ label,
+.importance > input:checked ~ label:hover,
+.importance > input:checked ~ label:hover ~ label,
+.importance > label:hover ~ input:checked ~ label { color: #f78ca0; }
+
+
+
+/* style input "finished"
+    not tested yet*/
+
+    .label__checkbox {
+ display: none;
+}
+
+.label__check {
+	display: inline-block;
+	border-radius: 50%;
+	border: 5px solid rgba(0, 0, 0, 0.1);
+	background: white;
+	vertical-align: middle;
+	margin-right: 20px;
+	width: 2em;
+	height: 2em;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: border .3s ease;
+	padding: 20px;
+	color: #F78CA0;
+}
+
+.label__check i.icon {
+	opacity: 0.2;
+	font-size: calc(1rem + 1vw);
+	color: transparent;
+	transition: opacity .3s .1s ease;
+	-webkit-text-stroke: 3px rgba(0, 0, 0, 0.5);
+}
+
+.label__check:hover {
+	border: 5px solid rgba(0, 0, 0, 0.2);
+}
+
+.label__checkbox:checked + .label__text .label__check {
+	animation: check 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22) 1 forwards;
+	color: white;
+}
+
+.label__checkbox:checked + .label__text .label__check .icon {
+	opacity: 1;
+	transform: scale(0);
+	color: white;
+	-webkit-text-stroke: 0;
+	animation: icon 0.3s cubic-bezier(1, 0.008, 0.565, 1.65) 0.1s 1 forwards;
+}
+
+
+.single-note label {
+  position: relative;
+  right: 20%;
+}
+
+@keyframes icon {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes check {
+  0% {
+    width: 1.5em;
+    height: 1.5em;
+    border-width: 5px;
+  }
+  10% {
+    width: 1.5em;
+    height: 1.5em;
+    opacity: 0.1;
+    background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+    border-width: 15px;
+  }
+  12% {
+    width: 1.5em;
+    height: 1.5em;
+    opacity: 0.4;
+     background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+    border-width: 0;
+  }
+  50% {
+    width: 2em;
+    height: 2em;
+     background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+    border: 0;
+    opacity: 0.6;
+  }
+  100% {
+    width: 2em;
+    height: 2em;
+    background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+    border: 0;
+    opacity: 1;
+  }
+}
+
+
+
+
+/*styling for importance rating */
+
+.importance {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+
+.importance:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+
+.importance:not(:checked) > label {
+  float: right;
+  width: 0.7em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #eee;
+}
+
+.importance:not(:checked) > label:before { content: '● '; }
+
+.importance > input:checked ~ label { color: #fe9a8b; }
+
+.importance:not(:checked) > label:hover, .importance:not(:checked) > label:hover ~ label { color: #f78ca0; }
+
+.importance > input:checked + label:hover,
+.importance > input:checked + label:hover ~ label,
+ .importance > input:checked ~ label:hover,
+  .importance > input:checked ~ label:hover ~ label,
+   .importance > label:hover ~ input:checked ~ label { color: #f78ca0; }
+   

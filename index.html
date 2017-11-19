@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Noteit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <link rel="stylesheet" href="style.css">
+  <!--fancy checkbox link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Palanquin:100,200,300,400" rel="stylesheet">
+
+  <!--
+    Second font: Noto sans
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    -->
+  <!-- handlebars template -->
+
+  <!--
+    <script id="notes-template" type="text/x-handlebars-template">
+      <p>{{importance}}</p>
+      <h3>{{notetitle}}</h3>
+      <p>{{content}}</p>
+      <a>{{duedate}}</a>
+    </script>  -->
+  <!--
+    <script id="notes-template2" id="notescontainer" type="text/x-handlebars-template">
+      <div id="checked" id="single-note" class="single-note styleme">
+ 
+        <div class="center">
+          <label class="label">
+              <input  class="label__checkbox" id="checknote" type="checkbox" />
+              <span class="label__text">
+                <span class="label__check">
+                  <i class=""> &#10004;</i>
+                </span>
+              </span>
+            </label>
+          </div>
+          <p>{{importance}}</p>
+          <h3>{{notetitle}}</h3>
+          <p>{{content}}</p>
+          <a>{{duedate}}</a>
+        </div>
+      </div>
+    </script>
+
+  -->
+</head>
+
+<body onload="updateView()" onoffline="nowOffline()">
+  <header>
+    <div class="gradient-light top-bar styleme">
+      <h1>Noteit</h1>
+
+      <!--
+       in the top right corner, you should be able to switch inbetween different themes
+       Light theme: lightgrey background and orange-pink colors
+       Dark theme: darkgrey background and blue-violet colors
+       colourful theme:  -->
+      <select id="styleswitcher" onchange="styleSwitcher()">
+        <option name="colourful" value="colourful">Colourful theme</option>
+        <option name="light" value="light">Light theme</option>
+        <option name="dark" value="dark">Dark theme</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <!--at the top of the app you should be able to switch inbetween the different sorting possibilities -->
+    <div class="flex">
+      <div class="half">
+        <div class="toggle">
+          <label class="selected">
+            By importance
+            <input name="state" type="radio" value="importance" checked />
+          </label>
+          <label>
+            By due date
+            <input name="state" type="radio" value="duedate" />
+          </label>
+          <label class="warning">
+            By created date
+            <input name="state" type="radio" value="created date" />
+          </label>
+        </div>
+        <input type="checkbox">Show finished</input>
+      </div>
+      <!--the create a task button from asana is pretty cool so I'd like to have the same concept for the web app -->
+      <button onclick="newNote()" id="btnAdd" type="button" class="gradient-light btn styleme">Add new note</button>
+
+    </div>
+
+    <!-- notes:
+    The note preview should include following:
+    - due date
+    - value if finished = true or false
+    - title and content
+    - importance value (1 to 5)
+    - possibility to edit the note
+  -->
+
+    <!--
+  start of the single note template, included with handlebars-v4
+-->
+
+    <!-- start of the notes section-->
+    <!-- de wird kopiert -->
+
+
+    <div class="notes" id="notescontainer">
+      <!--start of single-note -->
+      <div id="checked" class="single-note styleme">
+        <label>
+          <input class="label__checkbox" id="checknote" type="checkbox" />
+          <span class="label__text">
+            <span class="label__check">
+              <i class=""> &#10004;</i>
+            </span>
+          </span>
+        </label>
+        <div id="notes-template">
+          <p id="note-importance">0</p>
+          <h3 id="note-title">Create your first note</h3>
+          <p id="note-content">Start your way to productivity by creating your first note! </p>
+          <a id="note-duedate">29. September </a>
+        </div>
+        <script id="notes-template2" type="text/x-handlebars-template">
+          <p>{{importance}}</p>
+          <h3>{{notetitle}}</h3>
+          <p>{{content}}</p>
+          <a>{{duedate}}</a>
+        </script>
+      </div>
+    </div>
+  </main>
+
+  <!-- end of new content -->
+
+  <footer>
+    Made with ♥ by Cécile
+  </footer>
+
+  <script src="handlebars/handlebars-v4.0.10.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="newnotes.js"></script>
+
+
+  <script type="text/javascript" src="note-model.js"></script>
+  <script type="text/javascript" src="note-view.js"></script>
+  <script type="text/javascript" src="note-service.js"></script>
+  <script type="text/javascript" src="note-controller.js"></script>
+</body>
+
+</html>
