@@ -1,0 +1,17 @@
+{
+  "name": "cas_noteit",
+  "version": "1.0.0",
+  "description": "Website for my new app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "codingunicorn",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "handlebars": "^4.0.11",
+    "nedb": "^1.8.0"
+  }
+}

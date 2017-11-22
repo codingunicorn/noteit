@@ -92,18 +92,6 @@
 
     </div>
 
-    <!-- notes:
-    The note preview should include following:
-    - due date
-    - value if finished = true or false
-    - title and content
-    - importance value (1 to 5)
-    - possibility to edit the note
-  -->
-
-    <!--
-  start of the single note template, included with handlebars-v4
--->
 
     <!-- start of the notes section-->
     <!-- de wird kopiert -->
@@ -113,7 +101,7 @@
       <!--start of single-note -->
       <div id="checked" class="single-note styleme">
         <label>
-          <input class="label__checkbox" id="checknote" type="checkbox" />
+          <input name="checkbox" class="label__checkbox" id="checknote" type="checkbox" />
           <span class="label__text">
             <span class="label__check">
               <i class=""> &#10004;</i>
@@ -143,10 +131,10 @@
   </footer>
 
   <script src="handlebars/handlebars-v4.0.10.js"></script>
-  <script type="text/javascript" src="app.js"></script>
+ <script type="text/javascript" src="app.js"></script> 
   <script type="text/javascript" src="newnotes.js"></script>
 
-
+  <script type="text/javascript" src="database.js"></script>
   <script type="text/javascript" src="note-model.js"></script>
   <script type="text/javascript" src="note-view.js"></script>
   <script type="text/javascript" src="note-service.js"></script>
