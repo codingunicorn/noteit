@@ -17,6 +17,7 @@ exports.addNewNote = (req, res) => {
     });
 }
 
+
 // GET mit ID
 exports.getOneNote = (req, res) => {
     db.findOne({_id: req.params.noteID}, (error, data) => {
@@ -24,12 +25,14 @@ exports.getOneNote = (req, res) => {
     });
 };
 
+
 // PUT mit ID
 exports.updateOneNote = (req, res) => {
     db.update({_id: req.params.noteID}, req.body, (error, numReplaced) => {
         res.json(numReplaced);
     });
 };
+
 
 // DELETE mit ID
 exports.removeOneNote = (req, res) => {

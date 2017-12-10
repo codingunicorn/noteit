@@ -53,15 +53,52 @@ function nowOffline() {
 *
 ****************************************************************************/
 
-function saveNewNote() {
+function saveNewNoteOld() {
     //gets data from note
     counter = localStorage.length;
-    let tempnote = new Notelike(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('importance').value);
+    let tempnote = new Notelike(document.getElementById('title').value, 
+    document.getElementById('description').value, document.getElementById('importance').value, 
+    document.getElementById('enddate').value);
     //saves note in localStorage
     localStorage.setItem(counter, JSON.stringify(tempnote));
     counter++;
+    
 };
 
+
+function saveNewNote() {
+
+    /*
+    //gets data from note
+    counter = localStorage.length;
+    let tempnote = new Notelike(document.getElementById('title').value, 
+    document.getElementById('description').value, document.getElementById('importance').value, 
+    document.getElementById('enddate').value);
+    //saves note in localStorage
+    localStorage.setItem(counter, JSON.stringify(tempnote));
+    counter++;
+    */
+    var http = require("http");
+    
+    const options = {
+        port: 3000,
+        hostname: 'localhost',
+        headers: {
+          'Connection': 'Upgrade',
+          'Upgrade': 'websocket'
+        }
+      };
+    
+      const req = http.request(options);
+      req.end();
+    
+      req.on('upgrade', (res, socket, upgradeHead) => {
+        console.log('got upgraded!');
+        socket.end();
+        process.exit(0);
+      });
+        
+    };
 
 
 
@@ -78,7 +115,7 @@ function cloneTheNote() {
         let tempnote = localStorage.getItem(localStorage.key(i));
         notes = JSON.parse(tempnote);
         //fills content into cardtemplate
-        var context = { notetitle: notes.notetitle, content: notes.content, importance: notes.importance };
+        var context = { notetitle: notes.notetitle, content: notes.content, importance: notes.importance, duedate: notes.duedate };
         var html = template(context);
         //notecard is defined as the card that should be duplicated
         var notecard = document.querySelector("div.single-note");
@@ -98,16 +135,18 @@ function cloneTheNote() {
 
 //create a class that will produce the notes objects
 class Notelike {
-    constructor(notetitle, content, importance) {
+    constructor(notetitle, content, importance, duedate) {
         this.notetitle = notetitle;
         this.content = content;
         this.importance = importance;
+        this.duedate = duedate;
     }
 
-    set(notetitle, content, importance) {
+    set(notetitle, content, importance, duedate) {
         this.notetitle = notetitle;
         this.content = content;
         this.importance = importance;
+        this.duedate = duedate;
     }
 }
 
@@ -141,6 +180,58 @@ function updateView() {
     cloneTheNote();
     updateTheme();
 }
+
+
+//function that takes in parameter if edit note dialog should display or not
+function toggleAddDialog(visible) {
+    if (visible) {
+        document.querySelector('.dialog-container').classList.add('dialog-container--visible');
+    } else {
+        document.querySelector('.dialog-container').classList.remove('dialog-container--visible');
+    }
+  };
+
+
+//openDialog = document.querySelector('.dialog-container'),
+
+
+//if on cancel button: the edit dialog closes again
+  document.getElementById('butAddCancel').addEventListener('click', function() {
+    // Close the edit note dialog
+    toggleAddDialog(false);
+  });
+
+  /*
+  //if on edit button: the edit note dialog opens
+  document.getElementById('btn-edit').addEventListener('click', function() {
+    // Open/show the add new city dialog
+    alert("I am an alert box!");
+    toggleAddDialog(true);
+  });
+  */
+
+  
+//toggles the dialog box open by clicking on the note
+function toggleDialog() {
+    toggleAddDialog(true);
+};
+
+//deletes note and closes edit note dialog
+document.getElementById('btnDeleteNote').addEventListener('click', function() {
+    alert("Note got deleted successfully");
+    console.log("deleted");
+    // Close the edit note dialog
+    toggleAddDialog(false);
+  });
+
+
+//updates note and closes edit note dialog
+document.getElementById('btnDeleteNote').addEventListener('click', function() {
+    alert("Note got deleted successfully");
+    console.log("deleted");
+    // Close the edit note dialog
+    toggleAddDialog(false);
+  });
 
 
 
@@ -202,6 +293,7 @@ function updateTheme() {
         console.log("You selected the light theme");
         changeToLightTheme();
     }
+    
     else if (localStorage.getItem('themeoption') == "dark") {
         console.log("You selected the dark theme");
         changeToDarkTheme();
@@ -214,11 +306,10 @@ function updateTheme() {
     else {
         console.log("the styleswitcher doesn't work");
     }
-}
+};
 
 
 //end of styleswitcher
-
 
 //checks if note is finished or not
 function checkedNote() {
@@ -231,6 +322,38 @@ function checkedNote() {
     else if (noteIsFinished == false) {
         console.log("it's unchecked");
     }
+}
+
+//onchange function of note checkbox
+function checkIfFinished(checkboxes) {
+     //if note is finished and checkbox is clicked
+    if (checkboxes.checked) {
+        //add class "checknote" to note element
+        checkboxes.parentElement.parentElement.classList.add("checkednote");
+          } else {
+           //if note is unchecked, remove class "checkednote"
+            checkboxes.parentElement.parentElement.classList.remove("checkednote");            
+          }
+    }
+
+    
+//onchange function if finished notes are displayed or not
+function checkFinished(checkboxElem) {
+    if (checkboxElem.checked) {
+       
+        var x = document.getElementsByClassName('checkednote');
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "block";
+        }
+
+          } else {
+            var x = document.getElementsByClassName('checkednote');
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+          }
 }
 
 
@@ -248,45 +371,6 @@ for (i = 0; i < x.length; i++) {
 }
 
 
-
-//version from codepen
-filterSelection("all")
-function filterSelection(c) {
-    var x, i;
-    x = document.getElementsByClassName("single-note");
-    if (c == "all") c = "";
-    // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
-    for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "show");
-        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-    }
-}
-
-// Show filtered elements
-function w3AddClass(element, name) {
-    var i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-        if (arr1.indexOf(arr2[i]) == -1) {
-            element.className += " " + arr2[i];
-        }
-    }
-}
-
-
-// Hide elements that are not selected
-function w3RemoveClass(element, name) {
-    var i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-        while (arr1.indexOf(arr2[i]) > -1) {
-            arr1.splice(arr1.indexOf(arr2[i]), 1);
-        }
-    }
-    element.className = arr1.join(" ");
-}
 
 //end of filter function
 
@@ -307,8 +391,8 @@ $(document).ready(function () {
         if (localStorage["importance"]) {
             $('#importance').val(localStorage["importance"]);
         }
-        if (localStorage["enddate"]) {
-            $('#enddate').val(localStorage["enddate"]);
+        if (localStorage["duedate"]) {
+            $('#duedate').val(localStorage["duedate"]);
         }
     }
     init();

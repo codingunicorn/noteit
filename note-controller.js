@@ -2,26 +2,25 @@
 class NoteController {
 
     constructor() {
-        this.view = new ModelView(this);
-        NotesService.getAllNotes((data) => {
+        NotesService.GetAllNotes((data) => {
             this.notes = data;
-            //console.log('notes in notecontroller', this.notes);
-
-            //-> model-view aufrufen und Notes übergeben
+            this.notes.forEach((e) => {
+            //-> note-view aufrufen und Notes übergeben
             //  -> handlebar templates ausführen (für alle Notes)
-
-        });
-
-    }
-
-
-    UpdateNote(note, callback) {
-        NotesService.UpdateNote(note, (data) => {
-           
+                view.writeNote(e);                
+            });
         });
     }
 
- // Add
+
+    GetNoteById(id) {
+    if (id === null) {return new NoteModel();}
+      let note = this.notes.find((e) => {return e._id == id;});
+      return note;
+    }
+
+
+    // Add
     // von NewNoteForm ein Note bekommen
     // -> NotesService.AddNote aufrufen und Note übergeben
     //-> model-view aufrufen und Note übergeben
@@ -29,15 +28,14 @@ class NoteController {
     //  -> handlebar template ausführen (für neues Note)
 
 
-
-    AddNote(note) {
-        //gets Note from Form
-        counter = localStorage.length;
-        let tempnote = new Notelike(document.getElementById('title').value, document.getElementById('description').value, document.getElementById('importance').value);
-        //saves note in localStorage
-        localStorage.setItem(counter, JSON.stringify(tempnote));
-        counter++;
-
+    AddNote(note, callback) {
+        // von NewNoteForm ein Note bekommen
+        note = new Notelike(document.getElementById('title').value, 
+        document.getElementById('description').value, document.getElementById('importance').value, 
+        document.getElementById('enddate').value);
+        console.log(note);
+         // -> NotesService.AddNote aufrufen und Note übergeben
+        NotesService.AddNote(note);
     }
 
    
@@ -48,44 +46,47 @@ class NoteController {
     //  -> handlebar template ausführen (für upgedatetes Note)
 
 
-
     UpdateNote(note) {
-        getElementById("notes-template").addEventListener('click', function() {
-          
-        })
-        HTMLButtonElement.getAllNotes;
-        
+    // von UpdateNoteForm ein Note bekommen  
+    let note = (document.getElementById('notetitle').value, 
+    document.getElementById('description').value, document.getElementById('importance').value, 
+    document.getElementById('duedate').value);  
+    // NotesService.UpdateNote aufrufen und Note übergeben
+    NotesService.UpdateNote(note);
     }
 
+    
     // Finish
 
     // von Button ein Note (oder ID) bekommen
-    // -> wenn nur ID, dann in this.notes Note suchen
-    // finished auf Note ändern
-    // -> NotesService.UpdateNote aufrufen und Note übergeben
-    //-> model-view aufrufen und Note übergeben
-    //  -> handlebar template ausführen (für upgedatetes Note)
+    finishNote(id) {
+        // in this.notes Note suchen
+        let note = this.GetNoteById(id);
+        // finished auf Note ändern
+        note.finished = !note.finished;
+        // NotesService.UpdateNote aufrufen und Note übergeben
+        NotesService.UpdateNote(note);
+        //-> model-view aufrufen und Note übergeben
 
+        //  -> handlebar template ausführen (für upgedatetes Note)
+    }
 
 
     // Delete
 
-    DeleteNote(note) {
-        Button.onclick((data) => {
-            NotesService.DeleteNote(note);
-
-        }
-
-        )
-    }
     // von Button ein Note (oder ID) bekommen
+    DeleteNote(id) {
+        let note = this.GetNoteById(id);
 
-    // -> NotesService.DeleteNote aufrufen und Note (!) übergeben ( {_id: NoteID} )
+        // -> NotesService.DeleteNote aufrufen und Note (!) übergeben ( {_id: NoteID} )
+        NotesService.DeleteNote(note);
 
-    //-> model-view aufrufen und NoteID übergeben
-    //  -> handlebar template ausführen (für gelöschtes Note) / Code im DOM löschen
+        //-> model-view aufrufen und NoteID übergeben
 
+        // handlebar template ausführen (für gelöschtes Note) / Code im DOM löschen
+
+    }
 }
 
 
-new NoteController();
+const controller = new NoteController();

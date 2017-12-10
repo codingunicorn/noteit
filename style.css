@@ -1,4 +1,11 @@
-/*first styles for a short concept of the notes app*/
+
+/*
+ * 
+ * General CSS definitions
+ *
+ */
+
+
 body {
   margin: 0px;
   font-family: 'Palanquin', sans-serif;
@@ -7,6 +14,7 @@ body {
 
 header {
   width: 100vw;
+  max-width: 100%;
 }
 
 .top-bar{
@@ -42,7 +50,12 @@ form input {
   width: 50%;
 }
 
-/* NOTES */
+/*
+ * 
+ * Notes styles
+ *
+ */
+ 
 .notes {
   padding: 2% 0%;
   display: flex;
@@ -313,8 +326,32 @@ input[type="radio"] {
   }
 }
 
+/* Dialog */
 
+.dialog-container.dialog-container--visible {
+  display: flex;
+  background: white;
+  padding: 30px;
+  position: absolute;
+  top: 40%;
+  width: 50%;
+  height: 50%;
+  box-shadow: 1vw 1vw 20vw 5vw #333;
+}
 
+.dialog-container {
+  display: none;
+}
+
+.dialog input {
+  width: 100%;
+}
+
+.dialog-buttons {
+  display: flex;
+  padding-top: 4%;
+  justify-content: space-between;
+}
 
 /*styling for importance rating */
 

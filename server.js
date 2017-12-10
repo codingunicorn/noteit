@@ -14,7 +14,7 @@ app.route('/handlebars/:filename').get((req, res) => { res.sendFile(__dirname + 
 
 // REST API
 app.route('/api/notes')
-.get(notesDB.getAllNotes)
+.get((req, res) => {notesDB.getAllNotes(req, res);})
 .post(notesDB.addNewNote);
 
 app.route('/api/notes/:noteID')
@@ -25,3 +25,5 @@ app.route('/api/notes/:noteID')
 http.listen(3000, 'localhost', () => {
     console.log('server läuft');
 });
+
+

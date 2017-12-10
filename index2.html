@@ -10,10 +10,46 @@
   <!--fancy checkbox link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Palanquin:100,200,300,400" rel="stylesheet">
+
+  <!--
+    Second font: Noto sans
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    -->
+  <!-- handlebars template -->
+
+  <!--
+    <script id="notes-template" type="text/x-handlebars-template">
+      <p>{{importance}}</p>
+      <h3>{{notetitle}}</h3>
+      <p>{{content}}</p>
+      <a>{{duedate}}</a>
+    </script>  -->
+  <!--
+    <script id="notes-template2" id="notescontainer" type="text/x-handlebars-template">
+      <div id="checked" id="single-note" class="single-note styleme">
+ 
+        <div class="center">
+          <label class="label">
+              <input  class="label__checkbox" id="checknote" type="checkbox" />
+              <span class="label__text">
+                <span class="label__check">
+                  <i class=""> &#10004;</i>
+                </span>
+              </span>
+            </label>
+          </div>
+          <p>{{importance}}</p>
+          <h3>{{notetitle}}</h3>
+          <p>{{content}}</p>
+          <a>{{duedate}}</a>
+        </div>
+      </div>
+    </script>
+
+  -->
 </head>
 
-<!-- <body onload="updateView()" onoffline="nowOffline()"></body> -->
-<body onoffline="nowOffline()">
+<body onload="updateView()" onoffline="nowOffline()">
   <header>
     <div class="gradient-light top-bar styleme">
       <h1>Noteit</h1>
@@ -52,7 +88,8 @@
         <input type="checkbox" onchange="checkFinished(this)" checked>Show finished</input>
       </div>
       <!--the create a task button from asana is pretty cool so I'd like to have the same concept for the web app -->
-      <button onclick="view.openNewNote()" id="btnAdd" type="button" class="gradient-light btn styleme">Add new note</button>
+      <button onclick="newNote()" id="btnAdd" type="button" class="gradient-light btn styleme">Add new note</button>
+
     </div>
 
 
@@ -61,65 +98,29 @@
 
 
     <div class="notes" id="notescontainer">
-      <!--start of single-note   onclick="view.openEditDialog({{id}}) -->
+      <!--start of single-note -->
       <div id="checked" class="single-note styleme">
+        <label>
+          <input name="checkbox" class="label__checkbox" id="checknote" type="checkbox" />
+          <span class="label__text">
+            <span class="label__check">
+              <i class=""> &#10004;</i>
+            </span>
+          </span>
+        </label>
         <div id="notes-template">
-            <div class="importance">
-                <input type="radio" id="star" name="rate" value="3" />
-                <label for="star3" title="text"> </label>
-                <input type="radio" id="star" name="rate" value="2" />
-                <label for="star2" title="text"> </label>
-                <input type="radio" id="star" name="rate" value="1" />
-                <label for="star1" title="text"> </label>
-              </div>
-              <div onclick="view.openEditDialog({{id}})">
           <p id="note-importance">0</p>
           <h3 id="note-title">Create your first note</h3>
           <p id="note-content">Start your way to productivity by creating your first note! </p>
-          <p id="note-duedate">29. September </p>
-         </div>
+          <a id="note-duedate">29. September </a>
         </div>
         <script id="notes-template2" type="text/x-handlebars-template">
-          <label>
-            <input name="checkbox" class="label__checkbox" id="checknote" type="checkbox" onchange="view.finishNote('{{id}}')" {{#if finished}}checked{{/if}} />
-            <span class="label__text">
-              <span class="label__check">
-                <i class=""> &#10004;</i>
-              </span>
-            </span>
-          </label>
-          <button type="submit" id="btnDeleteNote" onclick="view.DeleteNote('{{id}}')">Delete note</button>
-          <div id="dialog-template2 {{id}}" onclick="view.openEditDialog('{{id}}')">
-          <p>{{importance}}</p>  
+          <p>{{importance}}</p>
           <h3>{{notetitle}}</h3>
           <p>{{content}}</p>
-          <p>{{duedate}}</p>
-        </div>
+          <a>{{duedate}}</a>
         </script>
       </div>
-    </div>
-
-
-      <!--edit note dialog -->
-    <div class="dialog-container">
-      <div class="dialog">
-        <form id="dialog-template" type="text/x-handlebars-template" onsubmit="view.UpdateNote(note)">
-          <div class="dialog-body">
-            <label>Importance:</label>
-            <input name="importance" type="range" id="importance" name="points" min="1" max="3" value="{{importance}}">
-            <label>Title:</label>
-            <input id="notetitle" type="text" value="{{notetitle}}"></input>
-            <label>Description:</label>
-            <input id="description" type="text" value="{{content}}"></input>
-            <label>Duedate:</label>
-            <input id="duedate" name="duedate" type="date" value={{duedate}}></input>
-          </div>
-          <div class="dialog-buttons">
-            <button id="btnCancel" class="button" onclick="view.closeEditDialog()">Cancel</button>
-            <button id="btnUpdateNote" class="button gradient-light btn styleme">Update note</button>
-          </div>
-        </form>
-     </div>
     </div>
   </main>
 
@@ -130,15 +131,14 @@
   </footer>
 
   <script src="handlebars/handlebars-v4.0.10.js"></script>
- <!--<script type="text/javascript" src="app.js"></script> 
+ <script type="text/javascript" src="app.js"></script> 
+  <script type="text/javascript" src="newnotes.js"></script>
 
- <script type="text/javascript" src="server.js"></script>
   <script type="text/javascript" src="database.js"></script>
--->
   <script type="text/javascript" src="note-model.js"></script>
   <script type="text/javascript" src="note-view.js"></script>
   <script type="text/javascript" src="note-service.js"></script>
-  <script type="text/javascript" src="note-controller.js"></script> 
+  <script type="text/javascript" src="note-controller.js"></script>
 </body>
 
 </html>

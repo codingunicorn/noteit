@@ -51,11 +51,13 @@ class NotesService {
         NotesAjaxService.POST(new NoteModel(note), callback);
     }
     static UpdateNote(note, callback) {
-        NotesAjaxService.PUT(new NoteModel(note), callback);
+        NotesAjaxService.PUT(note, callback);
     }
     static DeleteNote(note, callback) {
-        NotesAjaxService.DELETE(new NoteModel(note), callback);
+        NotesAjaxService.DELETE(note, callback);
     }
 }
+
+
 
 
