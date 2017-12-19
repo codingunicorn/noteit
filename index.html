@@ -13,6 +13,7 @@
 </head>
 
 <!-- <body onload="updateView()" onoffline="nowOffline()"></body> -->
+
 <body onoffline="nowOffline()">
   <header>
     <div class="gradient-light top-bar styleme">
@@ -64,20 +65,20 @@
       <!--start of single-note   onclick="view.openEditDialog({{id}}) -->
       <div id="checked" class="single-note styleme">
         <div id="notes-template">
-            <div class="importance">
-                <input type="radio" id="star" name="rate" value="3" />
-                <label for="star3" title="text"> </label>
-                <input type="radio" id="star" name="rate" value="2" />
-                <label for="star2" title="text"> </label>
-                <input type="radio" id="star" name="rate" value="1" />
-                <label for="star1" title="text"> </label>
-              </div>
-              <div onclick="view.openEditDialog({{id}})">
-          <p id="note-importance">0</p>
-          <h3 id="note-title">Create your first note</h3>
-          <p id="note-content">Start your way to productivity by creating your first note! </p>
-          <p id="note-duedate">29. September </p>
-         </div>
+          <div class="importance">
+            <input type="radio" id="star" name="rate" value="3" />
+            <label for="star3" title="text"> </label>
+            <input type="radio" id="star" name="rate" value="2" />
+            <label for="star2" title="text"> </label>
+            <input type="radio" id="star" name="rate" value="1" />
+            <label for="star1" title="text"> </label>
+          </div>
+          <div onclick="view.openEditDialog({{id}})">
+            <p id="note-importance">0</p>
+            <h3 id="note-title">Create your first note</h3>
+            <p id="note-content">Start your way to productivity by creating your first note! </p>
+            <p id="note-duedate">29. September </p>
+          </div>
         </div>
         <script id="notes-template2" type="text/x-handlebars-template">
           <label>
@@ -100,10 +101,10 @@
     </div>
 
 
-      <!--edit note dialog -->
+    <!--edit note dialog -->
     <div class="dialog-container">
       <div class="dialog">
-        <form id="dialog-template" type="text/x-handlebars-template" onsubmit="view.UpdateNote(note)">
+        <form id="dialog-template" type="text/x-handlebars-template" onsubmit="">
           <div class="dialog-body">
             <label>Importance:</label>
             <input name="importance" type="range" id="importance" name="points" min="1" max="3" value="{{importance}}">
@@ -116,10 +117,10 @@
           </div>
           <div class="dialog-buttons">
             <button id="btnCancel" class="button" onclick="view.closeEditDialog()">Cancel</button>
-            <button id="btnUpdateNote" class="button gradient-light btn styleme">Update note</button>
+            <button id="btnUpdateNote" onclick="view.updateNote('{{id}}')" class="button gradient-light btn styleme">Update note</button>
           </div>
         </form>
-     </div>
+      </div>
     </div>
   </main>
 
@@ -130,15 +131,16 @@
   </footer>
 
   <script src="handlebars/handlebars-v4.0.10.js"></script>
- <!--<script type="text/javascript" src="app.js"></script> 
-
+  <script type="text/javascript" src="app.js"></script> 
+<!--
  <script type="text/javascript" src="server.js"></script>
   <script type="text/javascript" src="database.js"></script>
 -->
+
   <script type="text/javascript" src="note-model.js"></script>
   <script type="text/javascript" src="note-view.js"></script>
   <script type="text/javascript" src="note-service.js"></script>
-  <script type="text/javascript" src="note-controller.js"></script> 
+  <script type="text/javascript" src="note-controller.js"></script>
 </body>
 
 </html>

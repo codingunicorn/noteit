@@ -7,11 +7,13 @@ class NoteView {
 
     writeNote(Note) {
         //handlebars
+        console.log("jetzt bini am write");
+        console.log(Note);
         var source = document.getElementById('notes-template2').innerHTML;
         var template = Handlebars.compile(source);
         var container = document.getElementById("notescontainer");
         //fills content into cardtemplate
-        var context = { id: Note._id, notetitle: Note.title, content: Note.description, importance: Note.importance, duedate: Note.duedate, finished: Note.finished };
+        var context = { id: Note._id, notetitle: Note.notetitle, content: Note.content, importance: Note.importance, duedate: Note.duedate, finished: Note.finished };
         var html = template(context);
         //notecard is defined as the card that should be duplicated
         var notecard = document.querySelector("div.single-note");
@@ -30,9 +32,10 @@ class NoteView {
     }
 
 
-    updateNote(note) {
-        console.log("its submitting");
-        controller.UpdateNote(note);
+    updateNote(id) {
+        console.log("jetzt wämer update");
+        console.log(id);
+        controller.UpdateNote(id);
     }
 
 
@@ -45,12 +48,14 @@ class NoteView {
     openEditDialog(id) {
         // Note suchen (im Controller)
         let note = controller.GetNoteById(id);
+       // let note = controller.GetOneNotebyId(id);
+
         // Handlebar Template laden
         var source = document.getElementById('dialog-template').innerHTML;
         var template = Handlebars.compile(source);
         var container = document.getElementById("dialog-template");
         //fills content into cardtemplate
-        var context = { id: note._id, notetitle: note.title, content: note.description, importance: note.importance, duedate: note.duedate, finished: note.finished };
+        var context = { id: note._id, notetitle: note.notetitle, content: note.content, importance: note.importance, duedate: note.duedate, finished: note.finished };
         var html = template(context);
         container.innerHTML = html;   
         document.querySelector('.dialog-container').classList.add('dialog-container--visible'); 
@@ -68,10 +73,9 @@ class NoteView {
     };
     
     
-    SaveNote(note) {
+    SaveNote() {
         console.log('saved');
-        debugger;
-        controller.AddNote(note);
+        controller.AddNote();
     }
 
 
@@ -93,9 +97,6 @@ class NoteView {
             }
           }
         }
-
-
-
 }
 
 const view = new NoteView();

@@ -150,6 +150,30 @@ class Notelike {
     }
 }
 
+
+//create a class that will produce the notes objects
+class NotelikeId {
+    constructor(notetitle, content, importance, duedate, id) {
+        this.notetitle = notetitle;
+        this.content = content;
+        this.importance = importance;
+        this.duedate = duedate;
+        this.id = id;
+    }
+
+    set(notetitle, content, importance, duedate, id) {
+        this.notetitle = notetitle;
+        this.content = content;
+        this.importance = importance;
+        this.duedate = duedate;
+        this.id = id;
+    }
+}
+
+
+
+
+
 //is thought to come to the view/controller page
 function submitNewNote() {
     //saves note 
@@ -194,12 +218,14 @@ function toggleAddDialog(visible) {
 
 //openDialog = document.querySelector('.dialog-container'),
 
-
+/*
 //if on cancel button: the edit dialog closes again
   document.getElementById('butAddCancel').addEventListener('click', function() {
     // Close the edit note dialog
     toggleAddDialog(false);
   });
+
+  */
 
   /*
   //if on edit button: the edit note dialog opens
@@ -323,6 +349,7 @@ function checkedNote() {
         console.log("it's unchecked");
     }
 }
+
 
 //onchange function of note checkbox
 function checkIfFinished(checkboxes) {

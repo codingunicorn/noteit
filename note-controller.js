@@ -2,62 +2,56 @@
 class NoteController {
 
     constructor() {
-        NotesService.GetAllNotes((data) => {
+        
+        //this.notes = NotesService.GetAllNotes();
+
+    NotesService.GetNotes((data) => {
             this.notes = data;
+            console.log("hello" + data);
             this.notes.forEach((e) => {
-            //-> note-view aufrufen und Notes übergeben
-            //  -> handlebar templates ausführen (für alle Notes)
-                view.writeNote(e);                
+                //-> note-view aufrufen und Notes übergeben
+                //  -> handlebar templates ausführen (für alle Notes)
+                view.writeNote(e);
+                console.log("jetzt schribe mer jede einzeln");
+                console.table(e);
             });
         });
     }
 
 
     GetNoteById(id) {
-    if (id === null) {return new NoteModel();}
-      let note = this.notes.find((e) => {return e._id == id;});
-      return note;
+        if (id === null) { return new NoteModel(); }
+        let note = this.notes.find((e) => { return e._id == id; });
+        return note;
     }
 
 
-    // Add
-    // von NewNoteForm ein Note bekommen
-    // -> NotesService.AddNote aufrufen und Note übergeben
-    //-> model-view aufrufen und Note übergeben
-
-    //  -> handlebar template ausführen (für neues Note)
-
-
-    AddNote(note, callback) {
+    AddNote(callback) {
         // von NewNoteForm ein Note bekommen
-        note = new Notelike(document.getElementById('title').value, 
-        document.getElementById('description').value, document.getElementById('importance').value, 
-        document.getElementById('enddate').value);
+        let note = new Notelike(document.getElementById('title').value,
+            document.getElementById('description').value, document.getElementById('importance').value,
+            document.getElementById('enddate').value);
         console.log(note);
-         // -> NotesService.AddNote aufrufen und Note übergeben
+        // -> NotesService.AddNote aufrufen und Note übergeben
         NotesService.AddNote(note);
     }
 
-   
-    // Update
-    // von UpdateNoteForm ein Note bekommen
-    // -> NotesService.UpdateNote aufrufen und Note übergeben
-    //-> model-view aufrufen und Note übergeben
-    //  -> handlebar template ausführen (für upgedatetes Note)
 
+    UpdateNote(id) {
+        // von UpdateNoteForm ein Note bekommen  
+        //let note = this.GetNoteById(id);
 
-    UpdateNote(note) {
-    // von UpdateNoteForm ein Note bekommen  
-    let note = (document.getElementById('notetitle').value, 
-    document.getElementById('description').value, document.getElementById('importance').value, 
-    document.getElementById('duedate').value);  
-    // NotesService.UpdateNote aufrufen und Note übergeben
-    NotesService.UpdateNote(note);
+        let note = new NotelikeId(document.getElementById('notetitle').value,
+        document.getElementById('description').value, document.getElementById('importance').value,
+        document.getElementById('duedate').value, id);
+        // NotesService.UpdateNote aufrufen und Note übergeben
+        console.log("jetzt simer im controller update");
+        console.log(note);
+        NotesService.UpdateNote(note);
     }
 
-    
-    // Finish
 
+    // Finish
     // von Button ein Note (oder ID) bekommen
     finishNote(id) {
         // in this.notes Note suchen
@@ -66,25 +60,17 @@ class NoteController {
         note.finished = !note.finished;
         // NotesService.UpdateNote aufrufen und Note übergeben
         NotesService.UpdateNote(note);
-        //-> model-view aufrufen und Note übergeben
-
-        //  -> handlebar template ausführen (für upgedatetes Note)
     }
 
 
     // Delete
 
     // von Button ein Note (oder ID) bekommen
-    DeleteNote(id) {
-        let note = this.GetNoteById(id);
-
+    DeleteNote(note, id) {
+        note = this.GetNoteById(note);
+        console.log(note);
         // -> NotesService.DeleteNote aufrufen und Note (!) übergeben ( {_id: NoteID} )
         NotesService.DeleteNote(note);
-
-        //-> model-view aufrufen und NoteID übergeben
-
-        // handlebar template ausführen (für gelöschtes Note) / Code im DOM löschen
-
     }
 }
 
